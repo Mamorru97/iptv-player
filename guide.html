@@ -99,6 +99,28 @@
     background: #f3f4f6;
   }
 
+
+  .search-box {
+    width: 100%;
+    box-sizing: border-box;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    padding: 10px 12px;
+    font-size: 16px;
+    margin: 8px 0 4px 0;
+  }
+
+  .search-box:focus {
+    outline: none;
+    border-color: #007aff;
+  }
+
+  .count {
+    color: #6b7280;
+    font-size: 14px;
+    margin: 4px 0 8px 0;
+  }
+
 </style>
 </head>
 
@@ -108,6 +130,9 @@
 <h1>IPTV Playlists by Country</h1>
 <p>Choose your country and copy the playlist link.</p>
 <p class="muted">Tap Copy next to a playlist link.</p>
+
+<input id="countrySearch" class="search-box" type="search" placeholder="Search country or code..." autocomplete="off">
+<p id="resultCount" class="count"></p>
 
 <table>
 <thead>
@@ -854,6 +879,39 @@
 
 </div>
 <script>
+  var rows = Array.prototype.slice.call(document.querySelectorAll('tbody tr'));
+  var searchInput = document.getElementById('countrySearch');
+  var resultCount = document.getElementById('resultCount');
+
+  rows.forEach(function(row) {
+    var countryCell = row.querySelector('td:first-child');
+    var link = row.querySelector('a').getAttribute('href');
+    var match = link.match(/\/countries\/([a-z0-9-]+)\.m3u/i);
+    var code = match ? match[1].toLowerCase() : '';
+    var country = countryCell.textContent.replace(/[\u{1F1E6}-\u{1F1FF}]/gu, '').trim().toLowerCase();
+
+    row.setAttribute('data-country', country);
+    row.setAttribute('data-code', code);
+  });
+
+  function updateSearch() {
+    var query = searchInput.value.trim().toLowerCase();
+    var visibleCount = 0;
+
+    rows.forEach(function(row) {
+      var country = row.getAttribute('data-country');
+      var code = row.getAttribute('data-code');
+      var isVisible = !query || country.indexOf(query) !== -1 || code.indexOf(query) !== -1;
+
+      row.style.display = isVisible ? '' : 'none';
+      if (isVisible) visibleCount += 1;
+    });
+
+    resultCount.textContent = query ? visibleCount + ' result(s)' : '';
+  }
+
+  searchInput.addEventListener('input', updateSearch);
+
   document.querySelectorAll('.copy-btn').forEach(function(button) {
     button.addEventListener('click', function() {
       var link = button.getAttribute('data-copy');
