@@ -127,9 +127,10 @@
 <body>
 <div class="content">
 
-<h1>IPTV Playlists by Country</h1>
-<p>Choose your country and copy the playlist link.</p>
-<p class="muted">Tap Copy next to a playlist link.</p>
+<h1 id="pageTitle">IPTV Playlists by Country</h1>
+<p id="subtitle">Choose your country and copy the playlist link.</p>
+<p id="notice" class="muted">Notice: These playlists come from public sources and are not part of our app. Some channels may not work or may become unavailable.</p>
+<p id="searchTip" class="muted">You can also search for other sources in your browser using: IPTV Playlist.</p>
 
 <input id="countrySearch" class="search-box" type="search" placeholder="Search country or code..." autocomplete="off">
 <p id="resultCount" class="count"></p>
@@ -137,8 +138,8 @@
 <table>
 <thead>
   <tr>
-    <th>Country</th>
-    <th>Link</th>
+    <th id="countryHeader">Country</th>
+    <th id="linkHeader">Link</th>
   </tr>
 </thead>
 <tbody>
@@ -879,6 +880,163 @@
 
 </div>
 <script>
+  var translations = {
+    en: {
+      title: 'IPTV Playlists by Country',
+      subtitle: 'Choose your country and copy the playlist link.',
+      notice: 'Notice: These playlists come from public sources and are not part of our app. Some channels may not work or may become unavailable.',
+      searchTip: 'You can also search for other sources in your browser using: IPTV Playlist.',
+      placeholder: 'Search country or code...',
+      country: 'Country',
+      link: 'Link',
+      copy: 'Copy',
+      copied: 'Copied',
+      results: 'result(s)',
+      prompt: 'Copy this link:'
+    },
+    ru: {
+      title: 'IPTV плейлисты по странам',
+      subtitle: 'Выберите страну и скопируйте ссылку на плейлист.',
+      notice: 'Важно: Эти плейлисты взяты из открытых источников и не являются частью нашего приложения. Некоторые каналы могут не работать или стать недоступными.',
+      searchTip: 'Вы также можете найти другие источники в браузере по запросу: IPTV Плейлист.',
+      placeholder: 'Поиск страны или кода...',
+      country: 'Страна',
+      link: 'Ссылка',
+      copy: 'Копировать',
+      copied: 'Скопировано',
+      results: 'результат(ов)',
+      prompt: 'Скопируйте эту ссылку:'
+    },
+    es: {
+      title: 'Listas IPTV por país',
+      subtitle: 'Elige tu país y copia el enlace de la lista.',
+      notice: 'Aviso: Estas listas vienen de fuentes públicas y no forman parte de nuestra app. Algunos canales pueden no funcionar o dejar de estar disponibles.',
+      searchTip: 'También puedes buscar otras fuentes en tu navegador usando: IPTV Playlist.',
+      placeholder: 'Buscar país o código...',
+      country: 'País',
+      link: 'Enlace',
+      copy: 'Copiar',
+      copied: 'Copiado',
+      results: 'resultado(s)',
+      prompt: 'Copia este enlace:'
+    },
+    de: {
+      title: 'IPTV-Playlists nach Land',
+      subtitle: 'Wähle dein Land und kopiere den Playlist-Link.',
+      notice: 'Hinweis: Diese Playlists stammen aus öffentlichen Quellen und sind nicht Teil unserer App. Einige Kanäle funktionieren möglicherweise nicht oder sind später nicht mehr verfügbar.',
+      searchTip: 'Du kannst auch in deinem Browser nach anderen Quellen suchen mit: IPTV Playlist.',
+      placeholder: 'Land oder Code suchen...',
+      country: 'Land',
+      link: 'Link',
+      copy: 'Kopieren',
+      copied: 'Kopiert',
+      results: 'Ergebnis(se)',
+      prompt: 'Diesen Link kopieren:'
+    },
+    fr: {
+      title: 'Playlists IPTV par pays',
+      subtitle: 'Choisissez votre pays et copiez le lien de la playlist.',
+      notice: 'Remarque : Ces playlists proviennent de sources publiques et ne font pas partie de notre application. Certaines chaînes peuvent ne pas fonctionner ou devenir indisponibles.',
+      searchTip: 'Vous pouvez aussi chercher d’autres sources dans votre navigateur avec : IPTV Playlist.',
+      placeholder: 'Rechercher un pays ou un code...',
+      country: 'Pays',
+      link: 'Lien',
+      copy: 'Copier',
+      copied: 'Copié',
+      results: 'résultat(s)',
+      prompt: 'Copiez ce lien :'
+    },
+    pt: {
+      title: 'Playlists IPTV por país',
+      subtitle: 'Escolha seu país e copie o link da playlist.',
+      notice: 'Aviso: Estas playlists vêm de fontes públicas e não fazem parte do nosso app. Alguns canais podem não funcionar ou ficar indisponíveis.',
+      searchTip: 'Você também pode procurar outras fontes no navegador usando: IPTV Playlist.',
+      placeholder: 'Pesquisar país ou código...',
+      country: 'País',
+      link: 'Link',
+      copy: 'Copiar',
+      copied: 'Copiado',
+      results: 'resultado(s)',
+      prompt: 'Copie este link:'
+    },
+    it: {
+      title: 'Playlist IPTV per paese',
+      subtitle: 'Scegli il tuo paese e copia il link della playlist.',
+      notice: 'Nota: Queste playlist provengono da fonti pubbliche e non fanno parte della nostra app. Alcuni canali potrebbero non funzionare o diventare non disponibili.',
+      searchTip: 'Puoi anche cercare altre fonti nel browser usando: IPTV Playlist.',
+      placeholder: 'Cerca paese o codice...',
+      country: 'Paese',
+      link: 'Link',
+      copy: 'Copia',
+      copied: 'Copiato',
+      results: 'risultato/i',
+      prompt: 'Copia questo link:'
+    },
+    zh: {
+      title: '按国家分类的 IPTV 播放列表',
+      subtitle: '选择你的国家并复制播放列表链接。',
+      notice: '提示：这些播放列表来自公开来源，并不是我们应用的一部分。部分频道可能无法播放或变得不可用。',
+      searchTip: '你也可以在浏览器中搜索其他来源：IPTV 播放列表。',
+      placeholder: '搜索国家或代码...',
+      country: '国家',
+      link: '链接',
+      copy: '复制',
+      copied: '已复制',
+      results: '个结果',
+      prompt: '复制此链接：'
+    },
+    ar: {
+      title: 'قوائم IPTV حسب البلد',
+      subtitle: 'اختر بلدك وانسخ رابط القائمة.',
+      notice: 'ملاحظة: هذه القوائم من مصادر عامة وليست جزءًا من تطبيقنا. قد لا تعمل بعض القنوات أو قد تصبح غير متاحة.',
+      searchTip: 'يمكنك أيضًا البحث عن مصادر أخرى في المتصفح باستخدام: قائمة تشغيل IPTV.',
+      placeholder: 'ابحث عن البلد أو الرمز...',
+      country: 'البلد',
+      link: 'الرابط',
+      copy: 'نسخ',
+      copied: 'تم النسخ',
+      results: 'نتيجة',
+      prompt: 'انسخ هذا الرابط:'
+    }
+  };
+
+  function getLanguage() {
+    var language = (navigator.language || navigator.userLanguage || 'en').toLowerCase();
+    var code = language.split('-')[0];
+    return translations[code] ? code : 'en';
+  }
+
+  var currentLanguage = getLanguage();
+  var text = translations[currentLanguage];
+
+  function applyLocalization() {
+    document.documentElement.lang = currentLanguage;
+
+    var topBlock = document.querySelector('.content');
+    if (currentLanguage === 'ar') {
+      document.documentElement.dir = 'rtl';
+      if (topBlock) topBlock.dir = 'rtl';
+    } else {
+      document.documentElement.dir = 'ltr';
+      if (topBlock) topBlock.dir = 'ltr';
+    }
+
+    document.title = text.title;
+    document.getElementById('pageTitle').textContent = text.title;
+    document.getElementById('subtitle').textContent = text.subtitle;
+    document.getElementById('notice').textContent = text.notice;
+    document.getElementById('searchTip').textContent = text.searchTip;
+    document.getElementById('countrySearch').setAttribute('placeholder', text.placeholder);
+    document.getElementById('countryHeader').textContent = text.country;
+    document.getElementById('linkHeader').textContent = text.link;
+
+    document.querySelectorAll('.copy-btn').forEach(function(button) {
+      button.textContent = text.copy;
+    });
+  }
+
+  applyLocalization();
+
   var rows = Array.prototype.slice.call(document.querySelectorAll('tbody tr'));
   var searchInput = document.getElementById('countrySearch');
   var resultCount = document.getElementById('resultCount');
@@ -907,7 +1065,7 @@
       if (isVisible) visibleCount += 1;
     });
 
-    resultCount.textContent = query ? visibleCount + ' result(s)' : '';
+    resultCount.textContent = query ? visibleCount + ' ' + text.results : '';
   }
 
   searchInput.addEventListener('input', updateSearch);
@@ -917,14 +1075,13 @@
       var link = button.getAttribute('data-copy');
 
       navigator.clipboard.writeText(link).then(function() {
-        var oldText = button.textContent;
-        button.textContent = 'Copied';
+        button.textContent = text.copied;
 
         setTimeout(function() {
-          button.textContent = oldText;
+          button.textContent = text.copy;
         }, 1200);
       }).catch(function() {
-        window.prompt('Copy this link:', link);
+        window.prompt(text.prompt, link);
       });
     });
   });
