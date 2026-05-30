@@ -132,6 +132,90 @@
     margin: 4px 0 8px 0;
   }
 
+
+  @media (max-width: 600px) {
+    .content {
+      padding: 0 14px 18px 14px;
+    }
+
+    h1 {
+      font-size: 26px;
+      line-height: 1.25;
+    }
+
+    h2 {
+      font-size: 19px;
+      margin-top: 26px;
+    }
+
+    p {
+      font-size: 16px;
+    }
+
+    .muted,
+    .count {
+      font-size: 15px;
+    }
+
+    table,
+    tbody,
+    tr,
+    td {
+      display: block;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    thead {
+      display: none;
+    }
+
+    table {
+      margin-top: 12px;
+      border-collapse: separate;
+      border-spacing: 0;
+    }
+
+    tr {
+      border-bottom: 1px solid rgba(216, 194, 168, 0.35);
+      padding: 10px 0;
+    }
+
+    td {
+      border-bottom: 0;
+      padding: 0;
+    }
+
+    td:first-child {
+      white-space: normal;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    .link-cell {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      width: 100%;
+      min-width: 0;
+    }
+
+    .link-cell a {
+      display: block;
+      flex: 1;
+      min-width: 0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .copy-btn {
+      flex: 0 0 auto;
+      padding: 6px 10px;
+      font-size: 14px;
+    }
+  }
+
 </style>
 </head>
 
