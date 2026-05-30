@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How to add playlist</title>
+
+<style>
+  html, body {
+    margin: 0;
+    padding: 0;
+    min-height: 100%;
+  }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+    color: #FFF7ED;
+    background:
+      radial-gradient(circle at 50% 100%, rgba(255, 122, 24, 0.38) 0%, rgba(255, 122, 24, 0.18) 30%, transparent 60%),
+      linear-gradient(180deg, #161000 0%, #241307 48%, #3A1F0E 100%);
+    background-attachment: fixed;
+    line-height: 1.35;
+  }
+
+  .content {
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 480px;
+    min-height: 100vh;
+    margin: 0 auto;
+    padding: 28px 22px 36px 22px;
+  }
+
+  h1 {
+    font-size: 28px;
+    line-height: 1.15;
+    margin: 0 0 28px 0;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    text-align: center;
+  }
+
+  .steps {
+    margin: 0;
+    padding: 0;
+  }
+
+  .step {
+    display: grid;
+    grid-template-columns: 28px 1fr;
+    gap: 10px;
+    align-items: start;
+    margin: 0 0 20px 0;
+    font-size: 20px;
+    font-weight: 700;
+  }
+
+  .step-number {
+    color: #FFF7ED;
+    font-weight: 800;
+    line-height: 1.25;
+  }
+
+  .step-text {
+    min-width: 0;
+  }
+
+  .query-button,
+  .main-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    border: 0;
+    border-radius: 9px;
+    background: #F59E0B;
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 800;
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.24);
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .query-button {
+    padding: 7px 14px;
+    margin-left: 6px;
+    font-size: 18px;
+    line-height: 1;
+    vertical-align: middle;
+  }
+
+  .main-button {
+    padding: 14px 22px;
+    margin: 8px auto 30px auto;
+    font-size: 24px;
+    min-width: 250px;
+  }
+
+  .query-button:hover,
+  .main-button:hover {
+    background: #F7A800;
+    text-decoration: none;
+  }
+
+  .query-button:active,
+  .main-button:active {
+    transform: translateY(1px);
+  }
+
+  .external-icon {
+    font-size: 18px;
+    line-height: 1;
+  }
+
+  .example-box {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-sizing: border-box;
+    width: 100%;
+    background: #FFF7ED;
+    color: #111827;
+    border-radius: 14px;
+    padding: 13px 14px;
+    margin: 2px 0 20px 0;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+    font-size: 14px;
+    font-weight: 600;
+    overflow: hidden;
+    box-shadow: 0 7px 18px rgba(0, 0, 0, 0.22);
+  }
+
+  .example-url {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    min-width: 0;
+    flex: 1;
+  }
+
+  .example-ext {
+    color: #F97316;
+    font-weight: 900;
+  }
+
+  .copy-icon {
+    color: #64748B;
+    flex: 0 0 auto;
+  }
+
+  .button-row {
+    display: flex;
+    justify-content: center;
+  }
+
+  .note {
+    border: 1px solid rgba(245, 158, 11, 0.55);
+    border-radius: 14px;
+    background: rgba(245, 158, 11, 0.10);
+    padding: 14px 14px 15px 14px;
+    color: #FFF7ED;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  }
+
+  .note-title {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    margin: 0 0 8px 0;
+    color: #FFB86B;
+    font-size: 18px;
+    font-weight: 800;
+  }
+
+  .note-text {
+    margin: 0;
+    font-size: 15px;
+    line-height: 1.35;
+    font-style: italic;
+    font-weight: 600;
+  }
+
+  .warning-icon {
+    color: #F59E0B;
+    font-size: 18px;
+    line-height: 1;
+  }
+
+  [dir="rtl"] .step {
+    grid-template-columns: 1fr 28px;
+  }
+
+  [dir="rtl"] .step-number {
+    order: 2;
+    text-align: left;
+  }
+
+  [dir="rtl"] .step-text {
+    order: 1;
+  }
+
+  [dir="rtl"] .query-button {
+    margin-left: 0;
+    margin-right: 6px;
+  }
+
+  @media (max-width: 390px) {
+    .content {
+      padding: 26px 18px 34px 18px;
+    }
+
+    h1 {
+      font-size: 26px;
+      margin-bottom: 26px;
+    }
+
+    .step {
+      font-size: 19px;
+      margin-bottom: 19px;
+    }
+
+    .query-button {
+      font-size: 17px;
+      padding: 7px 12px;
+    }
+
+    .main-button {
+      font-size: 22px;
+      min-width: 230px;
+    }
+  }
+</style>
+</head>
+
+<body>
+<div class="content">
+  <h1 id="title">How to add playlist</h1>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-number">1.</div>
+      <div class="step-text" id="step1">Open a search engine (e.g. Google)</div>
+    </div>
+
+    <div class="step">
+      <div class="step-number">2.</div>
+      <div class="step-text">
+        <span id="step2Prefix">Search for</span>
+        <a id="queryButton" class="query-button" href="https://www.google.com/search?q=IPTV%20Playlist" target="_blank" rel="noopener">
+          <span id="queryText">IPTV Playlist</span>
+          <span class="external-icon">↗</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-number">3.</div>
+      <div class="step-text" id="step3">Open any result and copy a playlist link (ending with .m3u or .m3u8)</div>
+    </div>
+  </div>
+
+  <div class="example-box" aria-label="Example playlist link">
+    <span class="example-url">https://example.com/index<span class="example-ext">.m3u</span></span>
+    <svg class="copy-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path d="M8 8H6.8C5.68 8 5.12 8 4.69 8.22C4.31 8.41 4.01 8.72 3.82 9.09C3.6 9.52 3.6 10.08 3.6 11.2V17.2C3.6 18.32 3.6 18.88 3.82 19.31C4.01 19.69 4.31 19.99 4.69 20.18C5.12 20.4 5.68 20.4 6.8 20.4H12.8C13.92 20.4 14.48 20.4 14.91 20.18C15.29 19.99 15.59 19.69 15.78 19.31C16 18.88 16 18.32 16 17.2V16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      <path d="M11.2 3.6H17.2C18.32 3.6 18.88 3.6 19.31 3.82C19.69 4.01 19.99 4.31 20.18 4.69C20.4 5.12 20.4 5.68 20.4 6.8V12.8C20.4 13.92 20.4 14.48 20.18 14.91C19.99 15.29 19.69 15.59 19.31 15.78C18.88 16 18.32 16 17.2 16H11.2C10.08 16 9.52 16 9.09 15.78C8.72 15.59 8.41 15.29 8.22 14.91C8 14.48 8 13.92 8 12.8V6.8C8 5.68 8 5.12 8.22 4.69C8.41 4.31 8.72 4.01 9.09 3.82C9.52 3.6 10.08 3.6 11.2 3.6Z" stroke="currentColor" stroke-width="2"/>
+    </svg>
+  </div>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-number">4.</div>
+      <div class="step-text" id="step4">Switch back to the app, tap “Add Playlist”, choose “From URL”, and paste the link</div>
+    </div>
+
+    <div class="step">
+      <div class="step-number">5.</div>
+      <div class="step-text" id="step5">Enjoy watching!</div>
+    </div>
+  </div>
+
+  <div class="button-row">
+    <a id="mainSearchButton" class="main-button" href="https://www.google.com/search?q=IPTV%20Playlist" target="_blank" rel="noopener">
+      <span>⌕</span>
+      <span id="mainButtonText">Search in browser</span>
+    </a>
+  </div>
+
+  <div class="note">
+    <div class="note-title">
+      <span class="warning-icon">⚠</span>
+      <span id="noteTitle">Note</span>
+    </div>
+    <p id="noteText" class="note-text">Some channels in public playlists may be unavailable. This is not an app issue — just try another channel.</p>
+  </div>
+</div>
+
+<script>
+(function () {
+  const translations = {
+    en: {
+      dir: "ltr",
+      query: "IPTV Playlist",
+      title: "How to add playlist",
+      step1: "Open a search engine (e.g. Google)",
+      step2Prefix: "Search for",
+      step3: "Open any result and copy a playlist link (ending with .m3u or .m3u8)",
+      step4: "Switch back to the app, tap “Add Playlist”, choose “From URL”, and paste the link",
+      step5: "Enjoy watching!",
+      mainButton: "Search in browser",
+      noteTitle: "Note",
+      noteText: "Some channels in public playlists may be unavailable. This is not an app issue — just try another channel."
+    },
+    ru: {
+      dir: "ltr",
+      query: "IPTV Плейлист",
+      title: "Как добавить плейлист",
+      step1: "Откройте поисковик (например, Google)",
+      step2Prefix: "Найдите",
+      step3: "Откройте любой результат и скопируйте ссылку на плейлист (она заканчивается на .m3u или .m3u8)",
+      step4: "Вернитесь в приложение, нажмите “Add Playlist”, выберите “From URL” и вставьте ссылку",
+      step5: "Приятного просмотра!",
+      mainButton: "Искать в браузере",
+      noteTitle: "Примечание",
+      noteText: "Некоторые каналы в публичных плейлистах могут быть недоступны. Это не проблема приложения — попробуйте другой канал."
+    },
+    es: {
+      dir: "ltr",
+      query: "IPTV Playlist",
+      title: "Cómo añadir una playlist",
+      step1: "Abre un buscador (por ejemplo, Google)",
+      step2Prefix: "Busca",
+      step3: "Abre cualquier resultado y copia un enlace de playlist (termina en .m3u o .m3u8)",
+      step4: "Vuelve a la app, toca “Add Playlist”, elige “From URL” y pega el enlace",
+      step5: "¡Disfruta!",
+      mainButton: "Buscar en navegador",
+      noteTitle: "Nota",
+      noteText: "Algunos canales en playlists públicas pueden no estar disponibles. No es un problema de la app — prueba otro canal."
+    },
+    de: {
+      dir: "ltr",
+      query: "IPTV Playlist",
+      title: "Playlist hinzufügen",
+      step1: "Öffne eine Suchmaschine (z. B. Google)",
+      step2Prefix: "Suche nach",
+      step3: "Öffne ein Ergebnis und kopiere einen Playlist-Link (endet mit .m3u oder .m3u8)",
+      step4: "Wechsle zurück zur App, tippe auf “Add Playlist”, wähle “From URL” und füge den Link ein",
+      step5: "Viel Spaß!",
+      mainButton: "Im Browser suchen",
+      noteTitle: "Hinweis",
+      noteText: "Einige Kanäle in öffentlichen Playlists sind möglicherweise nicht verfügbar. Das ist kein App-Problem — probiere einfach einen anderen Kanal."
+    },
+    fr: {
+      dir: "ltr",
+      query: "IPTV Playlist",
+      title: "Comment ajouter une playlist",
+      step1: "Ouvrez un moteur de recherche (par exemple Google)",
+      step2Prefix: "Recherchez",
+      step3: "Ouvrez un résultat et copiez un lien de playlist (se terminant par .m3u ou .m3u8)",
+      step4: "Revenez dans l’app, touchez “Add Playlist”, choisissez “From URL” et collez le lien",
+      step5: "Bon visionnage !",
+      mainButton: "Rechercher dans le navigateur",
+      noteTitle: "Note",
+      noteText: "Certains canaux dans les playlists publiques peuvent être indisponibles. Ce n’est pas un problème de l’app — essayez simplement un autre canal."
+    },
+    pt: {
+      dir: "ltr",
+      query: "IPTV Playlist",
+      title: "Como adicionar uma playlist",
+      step1: "Abra um mecanismo de busca (por exemplo, Google)",
+      step2Prefix: "Pesquise por",
+      step3: "Abra qualquer resultado e copie um link de playlist (terminando em .m3u ou .m3u8)",
+      step4: "Volte para o app, toque em “Add Playlist”, escolha “From URL” e cole o link",
+      step5: "Bom proveito!",
+      mainButton: "Pesquisar no navegador",
+      noteTitle: "Nota",
+      noteText: "Alguns canais em playlists públicas podem estar indisponíveis. Isso não é um problema do app — tente outro canal."
+    },
+    it: {
+      dir: "ltr",
+      query: "IPTV Playlist",
+      title: "Come aggiungere una playlist",
+      step1: "Apri un motore di ricerca (ad esempio Google)",
+      step2Prefix: "Cerca",
+      step3: "Apri un risultato e copia un link della playlist (termina con .m3u o .m3u8)",
+      step4: "Torna all’app, tocca “Add Playlist”, scegli “From URL” e incolla il link",
+      step5: "Buona visione!",
+      mainButton: "Cerca nel browser",
+      noteTitle: "Nota",
+      noteText: "Alcuni canali nelle playlist pubbliche potrebbero non essere disponibili. Non è un problema dell’app — prova un altro canale."
+    },
+    zh: {
+      dir: "ltr",
+      query: "IPTV 播放列表",
+      title: "如何添加播放列表",
+      step1: "打开搜索引擎（例如 Google）",
+      step2Prefix: "搜索",
+      step3: "打开任意结果，并复制播放列表链接（以 .m3u 或 .m3u8 结尾）",
+      step4: "返回应用，点击 “Add Playlist”，选择 “From URL”，然后粘贴链接",
+      step5: "开始观看！",
+      mainButton: "在浏览器中搜索",
+      noteTitle: "提示",
+      noteText: "公开播放列表中的部分频道可能无法使用。这不是应用问题——请尝试其他频道。"
+    },
+    ar: {
+      dir: "rtl",
+      query: "قائمة IPTV",
+      title: "كيفية إضافة قائمة تشغيل",
+      step1: "افتح محرك بحث (مثل Google)",
+      step2Prefix: "ابحث عن",
+      step3: "افتح أي نتيجة وانسخ رابط قائمة تشغيل (ينتهي بـ .m3u أو .m3u8)",
+      step4: "ارجع إلى التطبيق، اضغط على “Add Playlist”، اختر “From URL”، ثم الصق الرابط",
+      step5: "استمتع بالمشاهدة!",
+      mainButton: "البحث في المتصفح",
+      noteTitle: "ملاحظة",
+      noteText: "قد لا تكون بعض القنوات في القوائم العامة متاحة. هذه ليست مشكلة في التطبيق — جرّب قناة أخرى."
+    }
+  };
+
+  function getLanguage() {
+    const raw = (navigator.language || navigator.userLanguage || "en").toLowerCase();
+    if (raw.startsWith("zh")) return "zh";
+    if (raw.startsWith("ar")) return "ar";
+    const code = raw.slice(0, 2);
+    return translations[code] ? code : "en";
+  }
+
+  function setText(id, value) {
+    const el = document.getElementById(id);
+    if (el) el.textContent = value;
+  }
+
+  const lang = getLanguage();
+  const t = translations[lang] || translations.en;
+  const searchUrl = "https://www.google.com/search?q=" + encodeURIComponent(t.query);
+
+  document.documentElement.lang = lang;
+  document.documentElement.dir = t.dir;
+
+  setText("title", t.title);
+  setText("step1", t.step1);
+  setText("step2Prefix", t.step2Prefix);
+  setText("queryText", t.query);
+  setText("step3", t.step3);
+  setText("step4", t.step4);
+  setText("step5", t.step5);
+  setText("mainButtonText", t.mainButton);
+  setText("noteTitle", t.noteTitle);
+  setText("noteText", t.noteText);
+
+  document.getElementById("queryButton").href = searchUrl;
+  document.getElementById("mainSearchButton").href = searchUrl;
+})();
+</script>
+</body>
+</html>
