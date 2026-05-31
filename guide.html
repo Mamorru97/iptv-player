@@ -3,455 +3,1216 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>How to add playlist</title>
+
+<title>IPTV Playlists by Country</title>
 
 <style>
   html, body {
     margin: 0;
     padding: 0;
-    min-height: 100%;
   }
 
   body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
-    color: #FFF7ED;
     background:
-      radial-gradient(circle at 50% 100%, rgba(255, 122, 24, 0.38) 0%, rgba(255, 122, 24, 0.18) 30%, transparent 60%),
+      radial-gradient(circle at 50% 100%, rgba(255, 122, 24, 0.34) 0%, rgba(255, 122, 24, 0.16) 28%, transparent 58%),
       linear-gradient(180deg, #161000 0%, #241307 48%, #3A1F0E 100%);
     background-attachment: fixed;
-    line-height: 1.35;
+    color: #FFF7ED;
+    line-height: 1.6;
   }
 
   .content {
-    box-sizing: border-box;
-    width: 100%;
-    max-width: 480px;
-    min-height: 100vh;
-    margin: 0 auto;
-    padding: 28px 22px 36px 22px;
+    padding: 0 12px 16px 12px;
   }
 
   h1 {
-    font-size: 28px;
-    line-height: 1.15;
-    margin: 0 0 28px 0;
-    font-weight: 800;
-    letter-spacing: -0.02em;
-    text-align: center;
-  }
-
-  .steps {
+    font-size: 26px;
     margin: 0;
-    padding: 0;
   }
 
-  .step {
-    display: grid;
-    grid-template-columns: 28px 1fr;
-    gap: 10px;
-    align-items: start;
-    margin: 0 0 20px 0;
-    font-size: 20px;
-    font-weight: 700;
-  }
-
-  .step-number {
-    color: #FFF7ED;
-    font-weight: 800;
-    line-height: 1.25;
-  }
-
-  .step-text {
-    min-width: 0;
-  }
-
-  .query-button,
-  .main-button {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    border: 0;
-    border-radius: 9px;
-    background: #F59E0B;
-    color: #ffffff;
-    text-decoration: none;
-    font-weight: 800;
-    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.24);
-    cursor: pointer;
-    -webkit-tap-highlight-color: transparent;
-  }
-
-  .query-button {
-    padding: 7px 14px;
-    margin-left: 6px;
+  h2 {
     font-size: 18px;
-    line-height: 1;
-    vertical-align: middle;
+    margin: 22px 0 8px 0;
   }
 
-  .main-button {
-    padding: 14px 22px;
-    margin: 8px auto 30px auto;
-    font-size: 24px;
-    min-width: 250px;
+  p {
+    margin: 10px 0;
   }
 
-  .query-button:hover,
-  .main-button:hover {
-    background: #F7A800;
-    text-decoration: none;
-  }
-
-  .query-button:active,
-  .main-button:active {
-    transform: translateY(1px);
-  }
-
-  .external-icon {
-    font-size: 18px;
-    line-height: 1;
-  }
-
-  .example-box {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    box-sizing: border-box;
-    width: 100%;
-    background: #FFF7ED;
-    color: #111827;
-    border-radius: 14px;
-    padding: 13px 14px;
-    margin: 2px 0 20px 0;
-    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+  .muted {
+    color: #D8C2A8;
     font-size: 14px;
-    font-weight: 600;
-    overflow: hidden;
-    box-shadow: 0 7px 18px rgba(0, 0, 0, 0.22);
-  }
-
-  .example-url {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    min-width: 0;
-    flex: 1;
-  }
-
-  .example-ext {
-    color: #F97316;
-    font-weight: 900;
-  }
-
-  .copy-icon {
-    color: #64748B;
-    flex: 0 0 auto;
-  }
-
-  .button-row {
-    display: flex;
-    justify-content: center;
+    margin-top: 4px;
   }
 
   .note {
-    border: 1px solid rgba(245, 158, 11, 0.55);
-    border-radius: 14px;
-    background: rgba(245, 158, 11, 0.10);
-    padding: 14px 14px 15px 14px;
-    color: #FFF7ED;
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    color: #D8C2A8;
+    font-size: 14px;
+    line-height: 1.55;
+    margin: 14px 0 24px 0;
   }
 
-  .note-title {
-    display: flex;
-    align-items: center;
-    gap: 7px;
-    margin: 0 0 8px 0;
+  .note-label {
     color: #FFB86B;
-    font-size: 18px;
-    font-weight: 800;
+    font-weight: 700;
   }
 
-  .note-text {
-    margin: 0;
+  a {
+    color: #8AB4F8;
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 12px;
     font-size: 15px;
-    line-height: 1.35;
-    font-style: italic;
-    font-weight: 600;
   }
 
-  .warning-icon {
-    color: #F59E0B;
-    font-size: 18px;
-    line-height: 1;
-  }
-
-  [dir="rtl"] .step {
-    grid-template-columns: 1fr 28px;
-  }
-
-  [dir="rtl"] .step-number {
-    order: 2;
+  th, td {
+    border-bottom: 1px solid rgba(216, 194, 168, 0.35);
+    padding: 8px 6px;
     text-align: left;
+    vertical-align: top;
   }
 
-  [dir="rtl"] .step-text {
-    order: 1;
+  th {
+    font-weight: 600;
+    color: #FFF7ED;
   }
 
-  [dir="rtl"] .query-button {
-    margin-left: 0;
-    margin-right: 6px;
+  td:first-child {
+    white-space: nowrap;
   }
 
-  @media (max-width: 390px) {
+  td a {
+    overflow-wrap: anywhere;
+  }
+
+  .link-cell {
+    display: flex;
+    gap: 8px;
+    align-items: flex-start;
+  }
+
+  .link-cell a {
+    flex: 1;
+  }
+
+  .copy-btn {
+    border: 1px solid #D8C2A8;
+    background: rgba(255, 247, 237, 0.08);
+    color: #FFF7ED;
+    border-radius: 6px;
+    padding: 4px 8px;
+    font-size: 13px;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+
+  .copy-btn:hover {
+    background: rgba(255, 247, 237, 0.16);
+  }
+
+
+  .search-box {
+    width: 100%;
+    box-sizing: border-box;
+    border: 1px solid #D8C2A8;
+    border-radius: 8px;
+    padding: 10px 12px;
+    font-size: 16px;
+    margin: 8px 0 4px 0;
+    background: rgba(255, 247, 237, 0.08);
+    color: #FFF7ED;
+  }
+
+  .search-box::placeholder {
+    color: #D8C2A8;
+  }
+
+  .search-box:focus {
+    outline: none;
+    border-color: #8AB4F8;
+  }
+
+  .count {
+    color: #D8C2A8;
+    font-size: 14px;
+    margin: 4px 0 8px 0;
+  }
+
+
+  @media (max-width: 600px) {
     .content {
-      padding: 26px 18px 34px 18px;
+      padding: 0 14px 18px 14px;
     }
 
     h1 {
       font-size: 26px;
-      margin-bottom: 26px;
+      line-height: 1.25;
     }
 
-    .step {
+    h2 {
       font-size: 19px;
-      margin-bottom: 19px;
+      margin-top: 26px;
     }
 
-    .query-button {
-      font-size: 17px;
-      padding: 7px 12px;
+    p {
+      font-size: 16px;
     }
 
-    .main-button {
-      font-size: 22px;
-      min-width: 230px;
+    .muted,
+    .count {
+      font-size: 15px;
+    }
+
+    table,
+    tbody,
+    tr,
+    td {
+      display: block;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    thead {
+      display: none;
+    }
+
+    table {
+      margin-top: 12px;
+      border-collapse: separate;
+      border-spacing: 0;
+    }
+
+    tr {
+      border-bottom: 1px solid rgba(216, 194, 168, 0.35);
+      padding: 10px 0;
+    }
+
+    td {
+      border-bottom: 0;
+      padding: 0;
+    }
+
+    td:first-child {
+      white-space: normal;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    .link-cell {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      width: 100%;
+      min-width: 0;
+    }
+
+    .link-cell a {
+      display: block;
+      flex: 1;
+      min-width: 0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .copy-btn {
+      flex: 0 0 auto;
+      padding: 6px 10px;
+      font-size: 14px;
     }
   }
+
 </style>
 </head>
 
 <body>
 <div class="content">
-  <h1 id="title">How to add playlist</h1>
 
-  <div class="steps">
-    <div class="step">
-      <div class="step-number">1.</div>
-      <div class="step-text" id="step1">Open a search engine (e.g. Google)</div>
-    </div>
+<h1 id="pageTitle">IPTV Playlists by Country</h1>
+<p id="subtitle">Choose your country and copy the playlist link.</p>
+<p id="notice" class="note"><span class="note-label">Note:</span> The playlists below are from public sources and are not part of our app. Some channels may not work. You can also find more playlists by searching for “IPTV Playlist” in your browser.</p>
+<h2 id="playlistTitle">Country playlists</h2>
+<input id="countrySearch" class="search-box" type="search" placeholder="Search country or code..." autocomplete="off">
+<p id="resultCount" class="count"></p>
 
-    <div class="step">
-      <div class="step-number">2.</div>
-      <div class="step-text">
-        <span id="step2Prefix">Search for</span>
-        <a id="queryButton" class="query-button" href="https://www.google.com/search?q=IPTV%20Playlist" target="_blank" rel="noopener">
-          <span id="queryText">IPTV Playlist</span>
-          <span class="external-icon">↗</span>
-        </a>
-      </div>
-    </div>
+<table>
+<thead>
+  <tr>
+    <th id="countryHeader">Country</th>
+    <th id="linkHeader">Link</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td>🇦🇫 Afghanistan</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/af.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/af.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/af.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇦🇱 Albania</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/al.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/al.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/al.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇩🇿 Algeria</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/dz.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/dz.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/dz.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇦🇩 Andorra</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/ad.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/ad.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/ad.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇦🇴 Angola</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/ao.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/ao.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/ao.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇦🇷 Argentina</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/ar.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/ar.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/ar.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇦🇲 Armenia</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/am.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/am.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/am.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇦🇼 Aruba</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/aw.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/aw.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/aw.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇦🇺 Australia</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/au.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/au.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/au.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇦🇹 Austria</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/at.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/at.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/at.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇦🇿 Azerbaijan</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/az.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/az.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/az.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇧🇸 Bahamas</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/bs.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/bs.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/bs.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇧🇭 Bahrain</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/bh.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/bh.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/bh.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇧🇩 Bangladesh</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/bd.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/bd.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/bd.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇧🇧 Barbados</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/bb.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/bb.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/bb.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇧🇾 Belarus</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/by.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/by.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/by.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇧🇪 Belgium</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/be.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/be.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/be.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇧🇿 Belize</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/bz.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/bz.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/bz.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇧🇯 Benin</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/bj.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/bj.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/bj.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇧🇴 Bolivia</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/bo.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/bo.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/bo.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇧🇶 Bonaire</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/bq.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/bq.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/bq.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇧🇦 Bosnia and Herzegovina</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/ba.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/ba.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/ba.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇧🇷 Brazil</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/br.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/br.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/br.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇻🇬 British Virgin Islands</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/vg.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/vg.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/vg.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇧🇳 Brunei</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/bn.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/bn.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/bn.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇧🇬 Bulgaria</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/bg.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/bg.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/bg.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇧🇫 Burkina Faso</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/bf.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/bf.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/bf.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇰🇭 Cambodia</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/kh.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/kh.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/kh.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇨🇲 Cameroon</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/cm.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/cm.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/cm.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇨🇦 Canada</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/ca.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/ca.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/ca.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇨🇻 Cape Verde</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/cv.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/cv.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/cv.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇹🇩 Chad</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/td.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/td.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/td.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇨🇱 Chile</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/cl.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/cl.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/cl.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇨🇳 China</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/cn.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/cn.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/cn.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇨🇴 Colombia</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/co.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/co.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/co.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇰🇲 Comoros</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/km.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/km.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/km.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇨🇷 Costa Rica</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/cr.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/cr.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/cr.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇭🇷 Croatia</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/hr.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/hr.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/hr.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇨🇺 Cuba</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/cu.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/cu.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/cu.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇨🇼 Curacao</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/cw.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/cw.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/cw.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇨🇾 Cyprus</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/cy.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/cy.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/cy.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇨🇿 Czech Republic</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/cz.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/cz.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/cz.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇨🇩 Democratic Republic of the Congo</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/cd.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/cd.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/cd.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇩🇰 Denmark</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/dk.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/dk.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/dk.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇩🇴 Dominican Republic</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/do.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/do.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/do.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇪🇨 Ecuador</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/ec.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/ec.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/ec.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇪🇬 Egypt</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/eg.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/eg.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/eg.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇸🇻 El Salvador</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/sv.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/sv.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/sv.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇬🇶 Equatorial Guinea</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/gq.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/gq.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/gq.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇪🇷 Eritrea</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/er.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/er.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/er.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇪🇪 Estonia</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/ee.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/ee.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/ee.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇪🇹 Ethiopia</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/et.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/et.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/et.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇫🇴 Faroe Islands</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/fo.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/fo.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/fo.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇫🇮 Finland</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/fi.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/fi.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/fi.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇫🇷 France</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/fr.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/fr.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/fr.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇬🇫 French Guiana</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/gf.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/gf.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/gf.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇵🇫 French Polynesia</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/pf.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/pf.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/pf.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇬🇲 Gambia</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/gm.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/gm.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/gm.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇬🇪 Georgia</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/ge.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/ge.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/ge.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇩🇪 Germany</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/de.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/de.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/de.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇬🇭 Ghana</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/gh.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/gh.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/gh.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇬🇷 Greece</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/gr.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/gr.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/gr.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇬🇵 Guadeloupe</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/gp.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/gp.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/gp.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇬🇺 Guam</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/gu.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/gu.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/gu.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇬🇹 Guatemala</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/gt.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/gt.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/gt.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇬🇬 Guernsey</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/gg.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/gg.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/gg.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇬🇳 Guinea</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/gn.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/gn.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/gn.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇬🇾 Guyana</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/gy.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/gy.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/gy.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇭🇹 Haiti</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/ht.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/ht.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/ht.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇭🇳 Honduras</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/hn.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/hn.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/hn.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇭🇰 Hong Kong</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/hk.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/hk.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/hk.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇭🇺 Hungary</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/hu.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/hu.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/hu.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇮🇸 Iceland</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/is.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/is.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/is.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇮🇳 India</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/in.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/in.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/in.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇮🇩 Indonesia</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/id.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/id.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/id.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇮🇷 Iran</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/ir.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/ir.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/ir.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇮🇶 Iraq</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/iq.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/iq.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/iq.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇮🇪 Ireland</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/ie.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/ie.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/ie.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇮🇱 Israel</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/il.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/il.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/il.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇮🇹 Italy</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/it.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/it.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/it.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇨🇮 Ivory Coast</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/ci.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/ci.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/ci.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇯🇲 Jamaica</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/jm.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/jm.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/jm.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇯🇵 Japan</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/jp.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/jp.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/jp.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇯🇴 Jordan</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/jo.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/jo.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/jo.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇰🇿 Kazakhstan</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/kz.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/kz.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/kz.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇰🇪 Kenya</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/ke.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/ke.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/ke.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇽🇰 Kosovo</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/xk.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/xk.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/xk.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇰🇼 Kuwait</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/kw.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/kw.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/kw.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇰🇬 Kyrgyzstan</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/kg.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/kg.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/kg.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇱🇦 Laos</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/la.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/la.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/la.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇱🇻 Latvia</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/lv.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/lv.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/lv.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇱🇧 Lebanon</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/lb.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/lb.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/lb.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇱🇾 Libya</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/ly.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/ly.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/ly.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇱🇮 Liechtenstein</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/li.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/li.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/li.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇱🇹 Lithuania</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/lt.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/lt.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/lt.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇱🇺 Luxembourg</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/lu.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/lu.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/lu.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇲🇴 Macao</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/mo.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/mo.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/mo.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇲🇬 Madagascar</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/mg.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/mg.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/mg.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇲🇾 Malaysia</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/my.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/my.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/my.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇲🇻 Maldives</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/mv.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/mv.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/mv.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇲🇱 Mali</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/ml.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/ml.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/ml.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇲🇹 Malta</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/mt.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/mt.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/mt.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇲🇶 Martinique</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/mq.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/mq.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/mq.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇲🇷 Mauritania</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/mr.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/mr.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/mr.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇲🇺 Mauritius</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/mu.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/mu.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/mu.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇲🇽 Mexico</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/mx.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/mx.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/mx.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇲🇩 Moldova</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/md.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/md.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/md.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇲🇨 Monaco</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/mc.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/mc.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/mc.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇲🇳 Mongolia</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/mn.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/mn.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/mn.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇲🇪 Montenegro</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/me.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/me.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/me.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇲🇦 Morocco</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/ma.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/ma.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/ma.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇲🇿 Mozambique</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/mz.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/mz.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/mz.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇲🇲 Myanmar</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/mm.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/mm.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/mm.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇳🇦 Namibia</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/na.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/na.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/na.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇳🇵 Nepal</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/np.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/np.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/np.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇳🇱 Netherlands</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/nl.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/nl.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/nl.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇳🇿 New Zealand</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/nz.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/nz.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/nz.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇳🇮 Nicaragua</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/ni.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/ni.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/ni.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇳🇪 Niger</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/ne.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/ne.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/ne.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇳🇬 Nigeria</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/ng.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/ng.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/ng.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇰🇵 North Korea</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/kp.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/kp.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/kp.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇲🇰 North Macedonia</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/mk.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/mk.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/mk.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇳🇴 Norway</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/no.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/no.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/no.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇴🇲 Oman</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/om.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/om.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/om.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇵🇰 Pakistan</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/pk.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/pk.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/pk.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇵🇸 Palestine</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/ps.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/ps.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/ps.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇵🇦 Panama</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/pa.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/pa.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/pa.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇵🇬 Papua New Guinea</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/pg.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/pg.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/pg.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇵🇾 Paraguay</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/py.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/py.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/py.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇵🇪 Peru</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/pe.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/pe.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/pe.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇵🇭 Philippines</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/ph.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/ph.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/ph.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇵🇱 Poland</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/pl.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/pl.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/pl.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇵🇹 Portugal</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/pt.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/pt.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/pt.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇵🇷 Puerto Rico</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/pr.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/pr.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/pr.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇶🇦 Qatar</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/qa.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/qa.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/qa.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇨🇬 Republic of the Congo</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/cg.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/cg.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/cg.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇷🇪 Reunion</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/re.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/re.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/re.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇷🇴 Romania</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/ro.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/ro.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/ro.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇷🇺 Russia</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/ru.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/ru.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/ru.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇷🇼 Rwanda</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/rw.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/rw.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/rw.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇰🇳 Saint Kitts and Nevis</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/kn.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/kn.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/kn.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇱🇨 Saint Lucia</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/lc.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/lc.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/lc.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇼🇸 Samoa</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/ws.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/ws.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/ws.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇸🇲 San Marino</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/sm.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/sm.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/sm.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇸🇦 Saudi Arabia</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/sa.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/sa.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/sa.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇸🇳 Senegal</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/sn.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/sn.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/sn.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇷🇸 Serbia</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/rs.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/rs.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/rs.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇸🇬 Singapore</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/sg.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/sg.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/sg.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇸🇽 Sint Maarten</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/sx.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/sx.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/sx.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇸🇰 Slovakia</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/sk.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/sk.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/sk.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇸🇮 Slovenia</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/si.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/si.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/si.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇸🇴 Somalia</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/so.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/so.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/so.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇿🇦 South Africa</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/za.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/za.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/za.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇰🇷 South Korea</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/kr.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/kr.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/kr.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇪🇸 Spain</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/es.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/es.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/es.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇱🇰 Sri Lanka</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/lk.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/lk.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/lk.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇸🇩 Sudan</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/sd.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/sd.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/sd.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇸🇷 Suriname</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/sr.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/sr.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/sr.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇸🇪 Sweden</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/se.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/se.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/se.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇨🇭 Switzerland</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/ch.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/ch.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/ch.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇸🇾 Syria</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/sy.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/sy.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/sy.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇹🇼 Taiwan</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/tw.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/tw.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/tw.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇹🇯 Tajikistan</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/tj.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/tj.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/tj.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇹🇿 Tanzania</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/tz.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/tz.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/tz.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇹🇭 Thailand</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/th.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/th.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/th.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇹🇬 Togo</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/tg.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/tg.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/tg.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇹🇹 Trinidad and Tobago</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/tt.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/tt.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/tt.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇹🇳 Tunisia</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/tn.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/tn.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/tn.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇹🇷 Turkiye</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/tr.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/tr.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/tr.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇹🇲 Turkmenistan</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/tm.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/tm.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/tm.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇺🇬 Uganda</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/ug.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/ug.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/ug.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇺🇦 Ukraine</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/ua.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/ua.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/ua.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇦🇪 United Arab Emirates</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/ae.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/ae.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/ae.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇬🇧 United Kingdom</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/uk.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/uk.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/uk.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇺🇸 United States</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/us.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/us.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/us.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇺🇾 Uruguay</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/uy.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/uy.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/uy.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇺🇿 Uzbekistan</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/uz.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/uz.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/uz.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇻🇦 Vatican City</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/va.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/va.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/va.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇻🇪 Venezuela</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/ve.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/ve.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/ve.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇻🇳 Vietnam</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/vn.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/vn.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/vn.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇪🇭 Western Sahara</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/eh.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/eh.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/eh.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇾🇪 Yemen</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/ye.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/ye.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/ye.m3u">Copy</button></div></td>
+  </tr>
+  <tr>
+    <td>🇿🇼 Zimbabwe</td>
+    <td><div class="link-cell"><a href="https://iptv-org.github.io/iptv/countries/zw.m3u" target="_blank" rel="noopener noreferrer">https://iptv-org.github.io/iptv/countries/zw.m3u</a><button class="copy-btn" type="button" data-copy="https://iptv-org.github.io/iptv/countries/zw.m3u">Copy</button></div></td>
+  </tr>
+</tbody>
+</table>
 
-    <div class="step">
-      <div class="step-number">3.</div>
-      <div class="step-text" id="step3">Open any result and copy a playlist link (ending with .m3u or .m3u8)</div>
-    </div>
-  </div>
-
-  <div class="example-box" aria-label="Example playlist link">
-    <span class="example-url">https://example.com/index<span class="example-ext">.m3u</span></span>
-    <svg class="copy-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path d="M8 8H6.8C5.68 8 5.12 8 4.69 8.22C4.31 8.41 4.01 8.72 3.82 9.09C3.6 9.52 3.6 10.08 3.6 11.2V17.2C3.6 18.32 3.6 18.88 3.82 19.31C4.01 19.69 4.31 19.99 4.69 20.18C5.12 20.4 5.68 20.4 6.8 20.4H12.8C13.92 20.4 14.48 20.4 14.91 20.18C15.29 19.99 15.59 19.69 15.78 19.31C16 18.88 16 18.32 16 17.2V16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-      <path d="M11.2 3.6H17.2C18.32 3.6 18.88 3.6 19.31 3.82C19.69 4.01 19.99 4.31 20.18 4.69C20.4 5.12 20.4 5.68 20.4 6.8V12.8C20.4 13.92 20.4 14.48 20.18 14.91C19.99 15.29 19.69 15.59 19.31 15.78C18.88 16 18.32 16 17.2 16H11.2C10.08 16 9.52 16 9.09 15.78C8.72 15.59 8.41 15.29 8.22 14.91C8 14.48 8 13.92 8 12.8V6.8C8 5.68 8 5.12 8.22 4.69C8.41 4.31 8.72 4.01 9.09 3.82C9.52 3.6 10.08 3.6 11.2 3.6Z" stroke="currentColor" stroke-width="2"/>
-    </svg>
-  </div>
-
-  <div class="steps">
-    <div class="step">
-      <div class="step-number">4.</div>
-      <div class="step-text" id="step4">Switch back to the app, tap “Add Playlist”, choose “From URL”, and paste the link</div>
-    </div>
-
-    <div class="step">
-      <div class="step-number">5.</div>
-      <div class="step-text" id="step5">Enjoy watching!</div>
-    </div>
-  </div>
-
-  <div class="button-row">
-    <a id="mainSearchButton" class="main-button" href="https://www.google.com/search?q=IPTV%20Playlist" target="_blank" rel="noopener">
-      <span>⌕</span>
-      <span id="mainButtonText">Search in browser</span>
-    </a>
-  </div>
-
-  <div class="note">
-    <div class="note-title">
-      <span class="warning-icon">⚠</span>
-      <span id="noteTitle">Note</span>
-    </div>
-    <p id="noteText" class="note-text">Some channels in public playlists may be unavailable. This is not an app issue — just try another channel.</p>
-  </div>
 </div>
-
 <script>
-(function () {
-  const translations = {
+  var translations = {
     en: {
-      dir: "ltr",
-      query: "IPTV Playlist",
-      title: "How to add playlist",
-      step1: "Open a search engine (e.g. Google)",
-      step2Prefix: "Search for",
-      step3: "Open any result and copy a playlist link (ending with .m3u or .m3u8)",
-      step4: "Switch back to the app, tap “Add Playlist”, choose “From URL”, and paste the link",
-      step5: "Enjoy watching!",
-      mainButton: "Search in browser",
-      noteTitle: "Note",
-      noteText: "Some channels in public playlists may be unavailable. This is not an app issue — just try another channel."
+      title: 'IPTV Playlists by Country',
+      subtitle: 'Choose your country and copy the playlist link.',
+      noteLabel: 'Note:',
+      notice: 'The playlists below are from public sources and are not part of our app. Some channels may not work. You can also find more playlists by searching for “IPTV Playlist” in your browser.',
+      searchTip: 'You can also search for other sources in your browser using: IPTV Playlist.',
+      playlistTitle: 'Country playlists',
+      placeholder: 'Search country or code...',
+      country: 'Country',
+      link: 'Link',
+      copy: 'Copy',
+      copied: 'Copied',
+      results: 'result(s)',
+      prompt: 'Copy this link:'
     },
     ru: {
-      dir: "ltr",
-      query: "IPTV Плейлист",
-      title: "Как добавить плейлист",
-      step1: "Откройте поисковик (например, Google)",
-      step2Prefix: "Найдите",
-      step3: "Откройте любой результат и скопируйте ссылку на плейлист (она заканчивается на .m3u или .m3u8)",
-      step4: "Вернитесь в приложение, нажмите “Add Playlist”, выберите “From URL” и вставьте ссылку",
-      step5: "Приятного просмотра!",
-      mainButton: "Искать в браузере",
-      noteTitle: "Примечание",
-      noteText: "Некоторые каналы в публичных плейлистах могут быть недоступны. Это не проблема приложения — попробуйте другой канал."
+      title: 'IPTV плейлисты по странам',
+      subtitle: 'Выберите страну и скопируйте ссылку на плейлист.',
+      noteLabel: 'Важно:',
+      notice: 'Плейлисты ниже взяты из открытых источников и не являются частью нашего приложения. Некоторые каналы могут не работать. Вы также можете найти больше плейлистов, выполнив поиск «IPTV Плейлист» в браузере.',
+      searchTip: 'Вы также можете найти другие источники в браузере по запросу: IPTV Плейлист.',
+      playlistTitle: 'Плейлисты по странам',
+      placeholder: 'Поиск страны или кода...',
+      country: 'Страна',
+      link: 'Ссылка',
+      copy: 'Копировать',
+      copied: 'Скопировано',
+      results: 'результат(ов)',
+      prompt: 'Скопируйте эту ссылку:'
     },
     es: {
-      dir: "ltr",
-      query: "IPTV Playlist",
-      title: "Cómo añadir una playlist",
-      step1: "Abre un buscador (por ejemplo, Google)",
-      step2Prefix: "Busca",
-      step3: "Abre cualquier resultado y copia un enlace de playlist (termina en .m3u o .m3u8)",
-      step4: "Vuelve a la app, toca “Add Playlist”, elige “From URL” y pega el enlace",
-      step5: "¡Disfruta!",
-      mainButton: "Buscar en navegador",
-      noteTitle: "Nota",
-      noteText: "Algunos canales en playlists públicas pueden no estar disponibles. No es un problema de la app — prueba otro canal."
+      title: 'Listas IPTV por país',
+      subtitle: 'Elige tu país y copia el enlace de la lista.',
+      noteLabel: 'Aviso:',
+      notice: 'Las listas de abajo vienen de fuentes públicas y no forman parte de nuestra app. Algunos canales pueden no funcionar. También puedes encontrar más listas buscando “IPTV Playlist” en tu navegador.',
+      searchTip: 'También puedes buscar otras fuentes en tu navegador usando: IPTV Playlist.',
+      playlistTitle: 'Listas por país',
+      placeholder: 'Buscar país o código...',
+      country: 'País',
+      link: 'Enlace',
+      copy: 'Copiar',
+      copied: 'Copiado',
+      results: 'resultado(s)',
+      prompt: 'Copia este enlace:'
     },
     de: {
-      dir: "ltr",
-      query: "IPTV Playlist",
-      title: "Playlist hinzufügen",
-      step1: "Öffne eine Suchmaschine (z. B. Google)",
-      step2Prefix: "Suche nach",
-      step3: "Öffne ein Ergebnis und kopiere einen Playlist-Link (endet mit .m3u oder .m3u8)",
-      step4: "Wechsle zurück zur App, tippe auf “Add Playlist”, wähle “From URL” und füge den Link ein",
-      step5: "Viel Spaß!",
-      mainButton: "Im Browser suchen",
-      noteTitle: "Hinweis",
-      noteText: "Einige Kanäle in öffentlichen Playlists sind möglicherweise nicht verfügbar. Das ist kein App-Problem — probiere einfach einen anderen Kanal."
+      title: 'IPTV-Playlists nach Land',
+      subtitle: 'Wähle dein Land und kopiere den Playlist-Link.',
+      noteLabel: 'Hinweis:',
+      notice: 'Die Playlists unten stammen aus öffentlichen Quellen und sind nicht Teil unserer App. Einige Kanäle funktionieren möglicherweise nicht. Du kannst auch mehr Playlists finden, indem du in deinem Browser nach „IPTV Playlist“ suchst.',
+      searchTip: 'Du kannst auch in deinem Browser nach anderen Quellen suchen mit: IPTV Playlist.',
+      playlistTitle: 'Playlists nach Land',
+      placeholder: 'Land oder Code suchen...',
+      country: 'Land',
+      link: 'Link',
+      copy: 'Kopieren',
+      copied: 'Kopiert',
+      results: 'Ergebnis(se)',
+      prompt: 'Diesen Link kopieren:'
     },
     fr: {
-      dir: "ltr",
-      query: "IPTV Playlist",
-      title: "Comment ajouter une playlist",
-      step1: "Ouvrez un moteur de recherche (par exemple Google)",
-      step2Prefix: "Recherchez",
-      step3: "Ouvrez un résultat et copiez un lien de playlist (se terminant par .m3u ou .m3u8)",
-      step4: "Revenez dans l’app, touchez “Add Playlist”, choisissez “From URL” et collez le lien",
-      step5: "Bon visionnage !",
-      mainButton: "Rechercher dans le navigateur",
-      noteTitle: "Note",
-      noteText: "Certains canaux dans les playlists publiques peuvent être indisponibles. Ce n’est pas un problème de l’app — essayez simplement un autre canal."
+      title: 'Playlists IPTV par pays',
+      subtitle: 'Choisissez votre pays et copiez le lien de la playlist.',
+      noteLabel: 'Remarque :',
+      notice: 'Les playlists ci-dessous proviennent de sources publiques et ne font pas partie de notre application. Certaines chaînes peuvent ne pas fonctionner. Vous pouvez aussi trouver plus de playlists en recherchant « IPTV Playlist » dans votre navigateur.',
+      searchTip: 'Vous pouvez aussi chercher d’autres sources dans votre navigateur avec : IPTV Playlist.',
+      playlistTitle: 'Playlists par pays',
+      placeholder: 'Rechercher un pays ou un code...',
+      country: 'Pays',
+      link: 'Lien',
+      copy: 'Copier',
+      copied: 'Copié',
+      results: 'résultat(s)',
+      prompt: 'Copiez ce lien :'
     },
     pt: {
-      dir: "ltr",
-      query: "IPTV Playlist",
-      title: "Como adicionar uma playlist",
-      step1: "Abra um mecanismo de busca (por exemplo, Google)",
-      step2Prefix: "Pesquise por",
-      step3: "Abra qualquer resultado e copie um link de playlist (terminando em .m3u ou .m3u8)",
-      step4: "Volte para o app, toque em “Add Playlist”, escolha “From URL” e cole o link",
-      step5: "Bom proveito!",
-      mainButton: "Pesquisar no navegador",
-      noteTitle: "Nota",
-      noteText: "Alguns canais em playlists públicas podem estar indisponíveis. Isso não é um problema do app — tente outro canal."
+      title: 'Playlists IPTV por país',
+      subtitle: 'Escolha seu país e copie o link da playlist.',
+      noteLabel: 'Aviso:',
+      notice: 'As playlists abaixo vêm de fontes públicas e não fazem parte do nosso app. Alguns canais podem não funcionar. Você também pode encontrar mais playlists pesquisando “IPTV Playlist” no navegador.',
+      searchTip: 'Você também pode procurar outras fontes no navegador usando: IPTV Playlist.',
+      playlistTitle: 'Playlists por país',
+      placeholder: 'Pesquisar país ou código...',
+      country: 'País',
+      link: 'Link',
+      copy: 'Copiar',
+      copied: 'Copiado',
+      results: 'resultado(s)',
+      prompt: 'Copie este link:'
     },
     it: {
-      dir: "ltr",
-      query: "IPTV Playlist",
-      title: "Come aggiungere una playlist",
-      step1: "Apri un motore di ricerca (ad esempio Google)",
-      step2Prefix: "Cerca",
-      step3: "Apri un risultato e copia un link della playlist (termina con .m3u o .m3u8)",
-      step4: "Torna all’app, tocca “Add Playlist”, scegli “From URL” e incolla il link",
-      step5: "Buona visione!",
-      mainButton: "Cerca nel browser",
-      noteTitle: "Nota",
-      noteText: "Alcuni canali nelle playlist pubbliche potrebbero non essere disponibili. Non è un problema dell’app — prova un altro canale."
+      title: 'Playlist IPTV per paese',
+      subtitle: 'Scegli il tuo paese e copia il link della playlist.',
+      noteLabel: 'Nota:',
+      notice: 'Le playlist qui sotto provengono da fonti pubbliche e non fanno parte della nostra app. Alcuni canali potrebbero non funzionare. Puoi anche trovare altre playlist cercando “IPTV Playlist” nel browser.',
+      searchTip: 'Puoi anche cercare altre fonti nel browser usando: IPTV Playlist.',
+      playlistTitle: 'Playlist per paese',
+      placeholder: 'Cerca paese o codice...',
+      country: 'Paese',
+      link: 'Link',
+      copy: 'Copia',
+      copied: 'Copiato',
+      results: 'risultato/i',
+      prompt: 'Copia questo link:'
     },
     zh: {
-      dir: "ltr",
-      query: "IPTV 播放列表",
-      title: "如何添加播放列表",
-      step1: "打开搜索引擎（例如 Google）",
-      step2Prefix: "搜索",
-      step3: "打开任意结果，并复制播放列表链接（以 .m3u 或 .m3u8 结尾）",
-      step4: "返回应用，点击 “Add Playlist”，选择 “From URL”，然后粘贴链接",
-      step5: "开始观看！",
-      mainButton: "在浏览器中搜索",
-      noteTitle: "提示",
-      noteText: "公开播放列表中的部分频道可能无法使用。这不是应用问题——请尝试其他频道。"
+      title: '按国家分类的 IPTV 播放列表',
+      subtitle: '选择你的国家并复制播放列表链接。',
+      noteLabel: '提示：',
+      notice: '下面的播放列表来自公开来源，并不是我们应用的一部分。部分频道可能无法播放。你也可以在浏览器中搜索“IPTV 播放列表”来找到更多播放列表。',
+      searchTip: '你也可以在浏览器中搜索其他来源：IPTV 播放列表。',
+      playlistTitle: '国家播放列表',
+      placeholder: '搜索国家或代码...',
+      country: '国家',
+      link: '链接',
+      copy: '复制',
+      copied: '已复制',
+      results: '个结果',
+      prompt: '复制此链接：'
     },
     ar: {
-      dir: "rtl",
-      query: "قائمة IPTV",
-      title: "كيفية إضافة قائمة تشغيل",
-      step1: "افتح محرك بحث (مثل Google)",
-      step2Prefix: "ابحث عن",
-      step3: "افتح أي نتيجة وانسخ رابط قائمة تشغيل (ينتهي بـ .m3u أو .m3u8)",
-      step4: "ارجع إلى التطبيق، اضغط على “Add Playlist”، اختر “From URL”، ثم الصق الرابط",
-      step5: "استمتع بالمشاهدة!",
-      mainButton: "البحث في المتصفح",
-      noteTitle: "ملاحظة",
-      noteText: "قد لا تكون بعض القنوات في القوائم العامة متاحة. هذه ليست مشكلة في التطبيق — جرّب قناة أخرى."
+      title: 'قوائم IPTV حسب البلد',
+      subtitle: 'اختر بلدك وانسخ رابط القائمة.',
+      noteLabel: 'ملاحظة:',
+      notice: 'القوائم أدناه من مصادر عامة وليست جزءًا من تطبيقنا. قد لا تعمل بعض القنوات. يمكنك أيضًا العثور على قوائم أكثر من خلال البحث عن “قائمة تشغيل IPTV” في المتصفح.',
+      searchTip: 'يمكنك أيضًا البحث عن مصادر أخرى في المتصفح باستخدام: قائمة تشغيل IPTV.',
+      playlistTitle: 'القوائم حسب البلد',
+      placeholder: 'ابحث عن البلد أو الرمز...',
+      country: 'البلد',
+      link: 'الرابط',
+      copy: 'نسخ',
+      copied: 'تم النسخ',
+      results: 'نتيجة',
+      prompt: 'انسخ هذا الرابط:'
     }
   };
 
   function getLanguage() {
-    const raw = (navigator.language || navigator.userLanguage || "en").toLowerCase();
-    if (raw.startsWith("zh")) return "zh";
-    if (raw.startsWith("ar")) return "ar";
-    const code = raw.slice(0, 2);
-    return translations[code] ? code : "en";
+    var language = (navigator.language || navigator.userLanguage || 'en').toLowerCase();
+    var code = language.split('-')[0];
+    return translations[code] ? code : 'en';
   }
 
-  function setText(id, value) {
-    const el = document.getElementById(id);
-    if (el) el.textContent = value;
+  var currentLanguage = getLanguage();
+  var text = translations[currentLanguage];
+
+  function applyLocalization() {
+    document.documentElement.lang = currentLanguage;
+
+    var topBlock = document.querySelector('.content');
+    if (currentLanguage === 'ar') {
+      document.documentElement.dir = 'rtl';
+      if (topBlock) topBlock.dir = 'rtl';
+    } else {
+      document.documentElement.dir = 'ltr';
+      if (topBlock) topBlock.dir = 'ltr';
+    }
+
+    document.title = text.title;
+    document.getElementById('pageTitle').textContent = text.title;
+    document.getElementById('subtitle').textContent = text.subtitle;
+    document.getElementById('notice').innerHTML = '<span class="note-label">' + text.noteLabel + '</span> ' + text.notice;
+    document.getElementById('playlistTitle').textContent = text.playlistTitle;
+    document.getElementById('countrySearch').setAttribute('placeholder', text.placeholder);
+    document.getElementById('countryHeader').textContent = text.country;
+    document.getElementById('linkHeader').textContent = text.link;
+
+    document.querySelectorAll('.copy-btn').forEach(function(button) {
+      button.textContent = text.copy;
+    });
   }
 
-  const lang = getLanguage();
-  const t = translations[lang] || translations.en;
-  const searchUrl = "https://www.google.com/search?q=" + encodeURIComponent(t.query);
+  applyLocalization();
 
-  document.documentElement.lang = lang;
-  document.documentElement.dir = t.dir;
+  var rows = Array.prototype.slice.call(document.querySelectorAll('tbody tr'));
+  var searchInput = document.getElementById('countrySearch');
+  var resultCount = document.getElementById('resultCount');
 
-  setText("title", t.title);
-  setText("step1", t.step1);
-  setText("step2Prefix", t.step2Prefix);
-  setText("queryText", t.query);
-  setText("step3", t.step3);
-  setText("step4", t.step4);
-  setText("step5", t.step5);
-  setText("mainButtonText", t.mainButton);
-  setText("noteTitle", t.noteTitle);
-  setText("noteText", t.noteText);
+  rows.forEach(function(row) {
+    var countryCell = row.querySelector('td:first-child');
+    var link = row.querySelector('a').getAttribute('href');
+    var match = link.match(/\/countries\/([a-z0-9-]+)\.m3u/i);
+    var code = match ? match[1].toLowerCase() : '';
+    var country = countryCell.textContent.replace(/[\u{1F1E6}-\u{1F1FF}]/gu, '').trim().toLowerCase();
 
-  document.getElementById("queryButton").href = searchUrl;
-  document.getElementById("mainSearchButton").href = searchUrl;
-})();
+    row.setAttribute('data-country', country);
+    row.setAttribute('data-code', code);
+  });
+
+  function updateSearch() {
+    var query = searchInput.value.trim().toLowerCase();
+    var visibleCount = 0;
+
+    rows.forEach(function(row) {
+      var country = row.getAttribute('data-country');
+      var code = row.getAttribute('data-code');
+      var isVisible = !query || country.indexOf(query) !== -1 || code.indexOf(query) !== -1;
+
+      row.style.display = isVisible ? '' : 'none';
+      if (isVisible) visibleCount += 1;
+    });
+
+    resultCount.textContent = query ? visibleCount + ' ' + text.results : '';
+  }
+
+  searchInput.addEventListener('input', updateSearch);
+
+  document.querySelectorAll('.copy-btn').forEach(function(button) {
+    button.addEventListener('click', function() {
+      var link = button.getAttribute('data-copy');
+
+      navigator.clipboard.writeText(link).then(function() {
+        button.textContent = text.copied;
+
+        setTimeout(function() {
+          button.textContent = text.copy;
+        }, 1200);
+      }).catch(function() {
+        window.prompt(text.prompt, link);
+      });
+    });
+  });
 </script>
+
 </body>
 </html>
